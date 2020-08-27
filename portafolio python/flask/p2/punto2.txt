@@ -1,0 +1,32 @@
+import json
+from datetime import datetime, timedelta
+
+
+
+with open('fecha.json') as file:
+
+  	data = json.load(file)
+    #Rescatar los keys del diccionario generado
+  	dates=data['date']
+    #cambia el formato
+  	fechaIni =datetime.strptime(dates,"%Y/%m/%d")
+  	#Suma 21 dias
+  	fechaFin = fechaIni + timedelta(days=21)
+  	#Guarda el valore del año y mes de la nueva fecha respectivamente 
+  	anio=int(datetime.strftime(fechaFin, "%Y"))
+  	mes=int(datetime.strftime(fechaFin, "%m"))
+    #Calcula el ultimo dia del mes  teniendo en cuenta si es bisiesto (febrero)
+  	if  int(mes)==1 or 3 or 5 or 7 or 8  or 10 or 12:
+  		Ultimo_Dia=datetime(int(anio),int(mes),30)
+  		print(type(Ultimo_Dia),Ultimo_Dia)
+  	elif int(mes)==4 or 6 or 9 or 11:
+  		Ultimo_Dia=datetime(int(anio),int(mes),30)
+  		print(type(Ultimo_Dia),Ultimo_Dia)
+  	else:
+  		if int(anio)%4==0:
+  			Ultimo_Dia=datetime(int(anio),int(mes),29)
+  			print(type(Ultimo_Dia),Ultimo_Dia)
+  		else: 
+  			Ultimo_Dia=datetime(int(anio),int(mes),28)
+  			print(type(Ultimo_Dia),Ultimo_Dia)
+
