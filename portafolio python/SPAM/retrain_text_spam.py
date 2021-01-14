@@ -1,4 +1,3 @@
-
 import pandas as pd
 import numpy as np
 import tensorflow as tf
@@ -27,6 +26,7 @@ import tempfile
 from dominio import dominio1
 
 
+
 global text,status
 
 text= "Texto de prueba"
@@ -35,7 +35,8 @@ status= "Texto de prueba"
 def sending_data(texto,Status):
     
     global text,status
-    
+    Status="spam"
+    texto=pickle.load(open("cleantextSpam"+dominio1,"rb"))
     text=texto
     status=Status
     print("antes: ",text)
@@ -78,7 +79,7 @@ def func(text,status):
         pickle.dump(x_train_dictionary,open("x_train"+dominio1,"wb"))
         print("Realizado los cambios al diccionario de frases")
 
-    print(x_train_dictionary[-1],type(x_train_dictionary))
+    """ print(x_train_dictionary[-1],type(x_train_dictionary)) """
     print(len(x_train_dictionary))
     tok=Tokenizer(num_words=max_words, filters='¡¿!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n', lower=True)
     tok.fit_on_texts(x_train_dictionary)
@@ -116,4 +117,3 @@ def func(text,status):
     os.environ["MODEL_DIR"] = MODEL_DIR
         
     return text
-

@@ -25,6 +25,7 @@ import joblib
 import tempfile
 from keras.models import load_model
 from sklearn.feature_extraction.text import CountVectorizer
+import json
 
 
 df = pd.read_csv("spam.csv" )
@@ -126,8 +127,6 @@ print('\nSaved model:')
 os.environ["MODEL_DIR"] = MODEL_DIR
 print(os.environ["MODEL_DIR"])
 
-import json
-
 p="FreeMsg Why haven't you replied to my text? I'm Randy, sexy, female and live local. Luv to hear from u. Netcollex Ltd 08700621170150p per msg reply Stop to enda"
 testing_context= remove_stopwords(p)
 txts=tok.texts_to_sequences([testing_context])
@@ -141,19 +140,4 @@ txts=tok.texts_to_sequences([testing_context])
 data = json.dumps({"signature_name": "serving_default", "instances": txts})
 print('data :', data)
 
-import os
-os.system("fuser -k 8505/tcp")
-os.system('nohup tensorflow_model_server \
-  --rest_api_port=8505 \
-  --model_name=model \
-  --model_base_path="${MODEL_DIR}" >server.log 2>&1')
-
-
-
-""" import requests
-headers = {"content-type": "application/json"}
-data = json.dumps({"signature_name": "serving_default", "instances":txts})
-json_response = requests.post('http://localhost:8506/v1/models/model:predict', data=data, headers=headers)
-predictions = json.loads(json_response.text)
-print(predictions)   """
 

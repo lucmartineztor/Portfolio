@@ -1,0 +1,58 @@
+unknown argument: --ls
+usage: tensorflow_model_server
+Flags:
+	--port=8500                      	int32	Port to listen on for gRPC API
+	--grpc_socket_path=""            	string	If non-empty, listen to a UNIX socket for gRPC API on the given path. Can be either relative or absolute path.
+	--rest_api_port=0                	int32	Port to listen on for HTTP/REST API. If set to zero HTTP/REST API will not be exported. This port must be different than the one specified in --port.
+	--rest_api_num_threads=32        	int32	Number of threads for HTTP/REST API processing. If not set, will be auto set based on number of CPUs.
+	--rest_api_timeout_in_ms=30000   	int32	Timeout for HTTP/REST API calls.
+	--enable_batching=false          	bool	enable batching
+	--allow_version_labels_for_unavailable_models=false	bool	If true, allows assigning unused version labels to models that are not available yet.
+	--batching_parameters_file=""    	string	If non-empty, read an ascii BatchingParameters protobuf from the supplied file name and use the contained values instead of the defaults.
+	--model_config_file=""           	string	If non-empty, read an ascii ModelServerConfig protobuf from the supplied file name, and serve the models in that file. This config file can be used to specify multiple models to serve and other advanced parameters including non-default version policy. (If used, --model_name, --model_base_path are ignored.)
+	--model_config_file_poll_wait_seconds=0	int32	Interval in seconds between each poll of the filesystemfor model_config_file. If unset or set to zero, poll will be done exactly once and not periodically. Setting this to negative is reserved for testing purposes only.
+	--model_name="default"           	string	name of model (ignored if --model_config_file flag is set)
+	--model_base_path=""             	string	path to export (ignored if --model_config_file flag is set, otherwise required)
+	--max_num_load_retries=5         	int32	maximum number of times it retries loading a model after the first failure, before giving up. If set to 0, a load is attempted only once. Default: 5
+	--load_retry_interval_micros=60000000	int64	The interval, in microseconds, between each servable load retry. If set negative, it doesn't wait. Default: 1 minute
+	--file_system_poll_wait_seconds=1	int32	Interval in seconds between each poll of the filesystem for new model version. If set to zero poll will be exactly done once and not periodically. Setting this to negative value will disable polling entirely causing ModelServer to indefinitely wait for a new model at startup. Negative values are reserved for testing purposes only.
+	--flush_filesystem_caches=true   	bool	If true (the default), filesystem caches will be flushed after the initial load of all servables, and after each subsequent individual servable reload (if the number of load threads is 1). This reduces memory consumption of the model server, at the potential cost of cache misses if model files are accessed after servables are loaded.
+	--tensorflow_session_parallelism=0	int64	Number of threads to use for running a Tensorflow session. Auto-configured by default.Note that this option is ignored if --platform_config_file is non-empty.
+	--tensorflow_intra_op_parallelism=0	int64	Number of threads to use to parallelize the executionof an individual op. Auto-configured by default.Note that this option is ignored if --platform_config_file is non-empty.
+	--tensorflow_inter_op_parallelism=0	int64	Controls the number of operators that can be executed simultaneously. Auto-configured by default.Note that this option is ignored if --platform_config_file is non-empty.
+	--ssl_config_file=""             	string	If non-empty, read an ascii SSLConfig protobuf from the supplied file name and set up a secure gRPC channel
+	--platform_config_file=""        	string	If non-empty, read an ascii PlatformConfigMap protobuf from the supplied file name, and use that platform config instead of the Tensorflow platform. (If used, --enable_batching is ignored.)
+	--per_process_gpu_memory_fraction=0.000000	float	Fraction that eac2020-12-15 15:50:37.311272: I tensorflow_serving/model_servers/server.cc:87] Building single TensorFlow model file config:  model_name: model model_base_path: /tmp
+2020-12-15 15:50:37.311795: I tensorflow_serving/model_servers/server_core.cc:464] Adding/updating models.
+2020-12-15 15:50:37.311830: I tensorflow_serving/model_servers/server_core.cc:575]  (Re-)adding model: model
+2020-12-15 15:50:37.412178: I tensorflow_serving/core/basic_manager.cc:739] Successfully reserved resources to load servable {name: model version: 1}
+2020-12-15 15:50:37.412228: I tensorflow_serving/core/loader_harness.cc:66] Approving load for servable version {name: model version: 1}
+2020-12-15 15:50:37.412240: I tensorflow_serving/core/loader_harness.cc:74] Loading servable version {name: model version: 1}
+2020-12-15 15:50:37.412272: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:31] Reading SavedModel from: /tmp/1
+2020-12-15 15:50:37.432377: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:54] Reading meta graph with tags { serve }
+2020-12-15 15:50:37.432444: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:234] Reading SavedModel debug info (if present) from: /tmp/1
+2020-12-15 15:50:37.542417: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:199] Restoring SavedModel bundle.
+2020-12-15 15:50:37.730150: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:183] Running initialization op on SavedModel bundle at path: /tmp/1
+2020-12-15 15:50:37.860926: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:303] SavedModel load for tags { serve }; Status: success: OK. Took 448631 microseconds.
+2020-12-15 15:50:37.867205: I tensorflow_serving/servables/tensorflow/saved_model_warmup_util.cc:59] No warmup data file found at /tmp/1/assets.extra/tf_serving_warmup_requests
+2020-12-15 15:50:37.886168: I tensorflow_serving/core/loader_harness.cc:87] Successfully loaded servable version {name: model version: 1}
+2020-12-15 15:50:37.889944: I tensorflow_serving/model_servers/server.cc:367] Running gRPC ModelServer at 0.0.0.0:8500 ...
+2020-12-15 15:50:37.891546: I tensorflow_serving/model_servers/server.cc:387] Exporting HTTP/REST API at:localhost:8506 ...
+[evhttp_server.cc : 238] NET_LOG: Entering the event loop ...
+2020-12-15 16:03:59.923087: I tensorflow_serving/model_servers/server.cc:87] Building single TensorFlow model file config:  model_name: model model_base_path: /tmp
+2020-12-15 16:03:59.923799: I tensorflow_serving/model_servers/server_core.cc:464] Adding/updating models.
+2020-12-15 16:03:59.923844: I tensorflow_serving/model_servers/server_core.cc:575]  (Re-)adding model: model
+2020-12-15 16:04:00.024468: I tensorflow_serving/core/basic_manager.cc:739] Successfully reserved resources to load servable {name: model version: 1}
+2020-12-15 16:04:00.024571: I tensorflow_serving/core/loader_harness.cc:66] Approving load for servable version {name: model version: 1}
+2020-12-15 16:04:00.024603: I tensorflow_serving/core/loader_harness.cc:74] Loading servable version {name: model version: 1}
+2020-12-15 16:04:00.024662: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:31] Reading SavedModel from: /tmp/1
+2020-12-15 16:04:00.046598: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:54] Reading meta graph with tags { serve }
+2020-12-15 16:04:00.046688: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:234] Reading SavedModel debug info (if present) from: /tmp/1
+2020-12-15 16:04:00.167853: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:199] Restoring SavedModel bundle.
+2020-12-15 16:04:00.393564: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:183] Running initialization op on SavedModel bundle at path: /tmp/1
+2020-12-15 16:04:00.560856: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:303] SavedModel load for tags { serve }; Status: success: OK. Took 536174 microseconds.
+2020-12-15 16:04:00.573191: I tensorflow_serving/servables/tensorflow/saved_model_warmup_util.cc:59] No warmup data file found at /tmp/1/assets.extra/tf_serving_warmup_requests
+2020-12-15 16:04:00.592631: I tensorflow_serving/core/loader_harness.cc:87] Successfully loaded servable version {name: model version: 1}
+2020-12-15 16:04:00.597588: I tensorflow_serving/model_servers/server.cc:367] Running gRPC ModelServer at 0.0.0.0:8500 ...
+[evhttp_server.cc : 238] NET_LOG: Entering the event loop ...
+2020-12-15 16:04:00.599397: I tensorflow_serving/model_servers/server.cc:387] Exporting HTTP/REST API at:localhost:8506 ...
