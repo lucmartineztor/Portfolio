@@ -1,0 +1,2 @@
+sentiment-analysis-spanish==0.0.25
+sumy==0.11.0
